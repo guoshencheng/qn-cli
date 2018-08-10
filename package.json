@@ -1,0 +1,35 @@
+{
+  "name": "qn-cli",
+  "version": "1.0.2",
+  "description": "qn api caller",
+  "main": "lib/index.js",
+  "scripts": {
+    "prepublish": "npm run build && npm test",
+    "test": "jest --config jest.config.js",
+    "build": "tsc",
+    "dev": "tsc -w"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/guoshencheng/qn-cli.git"
+  },
+  "keywords": [
+    "axios",
+    "router"
+  ],
+  "author": "guoshencheng",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/guoshencheng/qn-cli/issues"
+  },
+  "homepage": "https://github.com/guoshencheng/qn-cli#readme",
+  "devDependencies": {
+    "@types/jest": "^23.3.1",
+    "@types/node": "^10.5.7",
+    "babel-core": "^6.26.3",
+    "babel-jest": "^23.4.2",
+    "ts-jest": "^23.1.2",
+    "tslint": "^5.11.0",
+    "typescript": "^3.0.1"
+  }
+}
