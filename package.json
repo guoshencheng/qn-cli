@@ -1,6 +1,6 @@
 {
   "name": "qn-cli",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "qn api caller",
   "main": "lib/index.js",
   "bin": "lib/index.js",
