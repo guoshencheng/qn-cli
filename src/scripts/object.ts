@@ -11,7 +11,7 @@ export const stat = async () => {
   const bucketManager = new qiniu.rs.BucketManager(mac, qiniuConf);
   const buckets = await bucketList();
   const { bucket } = await askBuckets(buckets);
-  const { key } = await askObjectKey();
+  const { key } = await askObjectKey(bucket);
   bucketManager.stat(bucket, key, (err, _, info) => {
     if (err) {
       console.log(`获取文件信息发生异常`);

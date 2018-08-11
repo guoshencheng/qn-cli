@@ -1,6 +1,6 @@
 {
   "name": "qn-cli",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "qn api caller",
   "main": "lib/index.js",
   "bin": "lib/index.js",
@@ -45,6 +45,7 @@
     "commander": "^2.17.1",
     "glob-stream": "^6.1.0",
     "inquirer": "^6.1.0",
+    "inquirer-autocomplete-prompt": "^1.0.1",
     "qiniu": "^7.2.1",
     "request": "^2.88.0",
     "request-promise": "^4.2.2",

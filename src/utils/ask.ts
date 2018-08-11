@@ -1,12 +1,34 @@
 import * as inquirer from 'inquirer';
-import { Token } from './token';
+import * as autocomplete from 'inquirer-autocomplete-prompt';
+import { Token, checkTokens } from './token';
 import { basePathWarning } from './renderer';
+import * as qiniu from 'qiniu';
 
-export const askObjectKey = (): Promise<{ key: string }> => {
+export const askObjectKey = async (bucket: string): Promise<{ key: string }> => {
+  inquirer.registerPrompt('autocomplete', autocomplete);
+  const { ak, sk } = await checkTokens();
+  const mac = new qiniu.auth.digest.Mac(ak, sk);
+  const qiniuConf = new qiniu.conf.Config();
+  const bucketManager = new qiniu.rs.BucketManager(mac, qiniuConf);
   return inquirer.prompt({
+    type: 'autocomplete',
     name: 'key',
-    message: 'Enter your qiniu object key ?'
-  })
+    message: 'select your qiniu object key ?',
+    source: (_: any, input: string) => {
+      return new Promise((resolve) => {
+        bucketManager.listPrefix(bucket, {
+          limit: 10,
+          prefix: input,
+        }, (err, _, info) => {
+          if (err) {
+            resolve([]);
+          } else {
+            resolve(info.data.items.map((item: any) => item.key));
+          }
+        })
+      });
+    }
+  } as any) as any
 }
 
 export const askTokens = (): Promise<Token> => {
