@@ -104,6 +104,7 @@ export default async ({ glob, basePath }: QiniuUploaderOption) => {
   } else {
     $basePath = basePath;
   }
+  const hostname = hostnames[hostnames.length - 1] || '';
   const { ak, sk } = await checkTokens();
   const mac = new qiniu.auth.digest.Mac(ak, sk);
   const putPolicy =  new qiniu.rs.PutPolicy({
@@ -142,7 +143,7 @@ export default async ({ glob, basePath }: QiniuUploaderOption) => {
             basePath: $basePath,
           });
           /* tslint:disable-next-line */
-          console.log(`success -> ${body.key}`);
+          console.log(`success upload -> ${hostname ? `http://${hostname}`: ''}/${body.key}`);
           next();
         }
       }));

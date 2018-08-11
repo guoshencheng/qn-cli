@@ -1,11 +1,15 @@
 import chalk from 'chalk';
 
 export const hostnames = (value: string[], bucket?: string) => {
-  console.log(`\n fetched hostnames map to ${bucket || 'this bucket'}`)
-  value.forEach(hostname => {
-    console.log(`*  ${hostname}`);
-  })
-  console.log('\n');
+  if (value && value.length > 0) {
+    console.log(`\n fetched hostnames map to bucket ${bucket || ''}`)
+    value.forEach(hostname => {
+      console.log(`*  ${hostname}`);
+    })
+    console.log('\n');
+  } else {
+    console.log(chalk.red(`no hostnames fetched in bucket ${bucket || ''}`));
+  }
 }
 
 export const basePathWarning = () => {
