@@ -4,7 +4,7 @@ import * as qiniu from 'qiniu';
 import * as gs from 'glob-stream';
 import * as through2 from 'through2';
 
-import { askBuckets } from '../utils/buckets';
+import { askBuckets, askBasePath } from '../utils/ask';
 
 import { checkTokens } from '../utils/token';
 import { bucketList, bucketHostNames } from '../apis';
@@ -98,7 +98,12 @@ export default async ({ glob, basePath }: QiniuUploaderOption) => {
   const { bucket } = await askBuckets(buckets);
   const hostnames = await bucketHostNames(bucket);
   renderer.hostnames(hostnames, bucket);
-  const $basePath = basePath || '';
+  let $basePath: string;
+  if (!basePath) {
+    $basePath = await askBasePath();
+  } else {
+    $basePath = basePath;
+  }
   const { ak, sk } = await checkTokens();
   const mac = new qiniu.auth.digest.Mac(ak, sk);
   const putPolicy =  new qiniu.rs.PutPolicy({
@@ -127,7 +132,7 @@ export default async ({ glob, basePath }: QiniuUploaderOption) => {
           next();
         } else {
           /* tslint:disable-next-line */
-          console.log(`正在上传 → ${filePath} ...`);
+          console.log(`uploading → ${filePath} ...`);
           const body = await uploadFile({
             dir: file.path,
             key: filePath,
@@ -137,7 +142,7 @@ export default async ({ glob, basePath }: QiniuUploaderOption) => {
             basePath: $basePath,
           });
           /* tslint:disable-next-line */
-          console.log(`上传成功 -> ${body.key}`);
+          console.log(`success -> ${body.key}`);
           next();
         }
       }));

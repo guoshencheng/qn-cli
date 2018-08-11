@@ -10,19 +10,24 @@ program.version(packageJson.version);
 
 program
   .command('upload [dirs...]')
-  .action((dirs) => {
+  .description('upload files with glob string or file path')
+  .option('-p, --prefix <prefix>', 'setting your upload files prefix')
+  .action((dirs, options) => {
     upload({
-      glob: dirs
+      glob: dirs,
+      basePath: options.prefix
     })
   })
 program
   .command('buckets')
+  .description('show all buckets in your qiniu cdn')
   .action(() => {
     buckets.list();
   })
 
 program
   .command('hosts')
+  .description('show all host map to your bucket, bucket is option')
   .action((sub) => {
     // 在有子命令的时候 sub会是一个string，没有子命令，sub会是一个对象
     if (typeof sub === 'string') {
@@ -31,4 +36,11 @@ program
       hostnames.fetchHosts();
     }
   })
-program.parse(process.argv);
+
+const result = program.parse(process.argv);
+
+if (result.args.length == 0) {
+  program.help();
+} else if (result.args.filter(i => typeof i ==='string').length === result.args.length) {
+  program.help();
+}

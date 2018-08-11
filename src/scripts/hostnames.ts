@@ -1,5 +1,5 @@
 import { bucketList, bucketHostNames } from '../apis';
-import { askBuckets } from '../utils/buckets';
+import { askBuckets } from '../utils/ask';
 import * as renderer from '../utils/renderer';
 
 export const fetchHosts = async (bucket?: string) => {
