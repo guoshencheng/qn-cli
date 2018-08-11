@@ -1,25 +1,21 @@
 {
   "compilerOptions": {
-    "downlevelIteration": true,
-    "target": "es5",
-    "module": "commonjs",
-    "declaration": true,
-    "sourceMap": true,
-    "jsx": "react",
-    "noLib": false,
-    "noEmitOnError": true,
-    "noUnusedLocals": true,
-    "noImplicitReturns": true,
-    "experimentalDecorators": true,
-    "noFallthroughCasesInSwitch": true,
+    "outDir": "./lib",
     "strictNullChecks": true,
-    "noImplicitAny": false,
-    "noUnusedParameters": false,
-    "noImplicitThis": false,
-    "traceResolution": false,
-    "lib": [ "es2016", "dom" ],
-    "outDir": "./lib"
+    "moduleResolution": "node",
+    "jsx": "preserve",
+    "noUnusedParameters": true,
+    "noUnusedLocals": true,
+    "allowSyntheticDefaultImports":true,
+    "target": "ES3",
+    "noImplicitAny": true,
+    "declaration": true,
+    "lib": [ "es2015", "dom" ]
   },
-  "exclude": [ "node_modules/", "lib/" ],
-  "include": [ "src/*.ts" ]
+  "exclude": [
+    "node_modules",
+    "lib"
+  ],
+  "include": [ "src/**/*"],
+  "compileOnSave": false
 }
