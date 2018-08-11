@@ -3,6 +3,7 @@ import * as program from 'commander';
 import upload from './scripts/upload';
 import * as buckets from './scripts/buckets';
 import * as hostnames from './scripts/hostnames';
+import * as object from './scripts/object';
 
 const packageJson = require('../package.json') as any;
 
@@ -34,6 +35,17 @@ program
       hostnames.fetchHosts(sub);
     } else {
       hostnames.fetchHosts();
+    }
+  })
+
+program
+  .command('objects')
+  .description('show all host map to your bucket, bucket is option')
+  .action((sub) => {
+    console.log(sub)
+    switch(sub) {
+      case 'stats':
+        object.stat();
     }
   })
 

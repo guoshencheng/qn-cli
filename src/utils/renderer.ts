@@ -24,3 +24,19 @@ export const basePathWarning = () => {
   console.log(chalk.yellow('someone may overwrite this file by mistake'));
   console.log('===========================================');
 }
+
+export const objectStatsInfo = (info: any) => {
+  if (info.error) {
+    console.log(`fail to fetch object stats, error message: ${info.error}`)
+  } else {
+    console.log(chalk.green(`success to fetch object stats`))
+    console.log('===========================================');
+    console.log('**                Stats                  **');
+    console.log('===========================================');
+    console.log(chalk.green(`file size: ${info.fsize}`));
+    console.log(chalk.green(`hash: ${info.hash}`));
+    console.log(chalk.green(`md5: ${info.md5}`));
+    console.log(chalk.green(`mime type: ${info.mimeType}`));
+    console.log(chalk.green(`put time: ${new Date(Number(info.putTime) / 1000).toLocaleString('zh-CN')}`));
+  }
+}

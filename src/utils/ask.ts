@@ -2,6 +2,13 @@ import * as inquirer from 'inquirer';
 import { Token } from './token';
 import { basePathWarning } from './renderer';
 
+export const askObjectKey = (): Promise<{ key: string }> => {
+  return inquirer.prompt({
+    name: 'key',
+    message: 'Enter your qiniu object key ?'
+  })
+}
+
 export const askTokens = (): Promise<Token> => {
   return inquirer.prompt([{
     name: 'ak',
