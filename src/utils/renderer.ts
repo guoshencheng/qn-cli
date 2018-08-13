@@ -40,3 +40,53 @@ export const objectStatsInfo = (info: any) => {
     console.log(chalk.green(`put time: ${new Date(Number(info.putTime) / 1000).toLocaleString('zh-CN')}`));
   }
 }
+
+export const objectMoveSuccess = (originBucket: string, originKey: string, targetKey: string, targetBucket: string) => {
+  console.log('\n');
+  console.log(chalk.green('Move Operation!'));
+  console.log(chalk.green('From →'));
+  console.log(chalk.green(`  Bucket: ${originBucket}`));
+  console.log(chalk.green(`  Key: ${originKey}`));
+  console.log(chalk.green('To →'));
+  console.log(chalk.green(`  Bucket: ${targetBucket}`));
+  console.log(chalk.green(`  Key: ${targetKey}`));
+  console.log(chalk.green('Success !'))
+}
+
+export const objectCopySuccess = (originBucket: string, originKey: string, targetKey: string, targetBucket: string) => {
+  console.log('\n');
+  console.log(chalk.green('Copy Operation!'));
+  console.log(chalk.green('From →'));
+  console.log(chalk.green(`  Bucket: ${originBucket}`));
+  console.log(chalk.green(`  Key: ${originKey}`));
+  console.log(chalk.green('To →'));
+  console.log(chalk.green(`  Bucket: ${targetBucket}`));
+  console.log(chalk.green(`  Key: ${targetKey}`));
+  console.log(chalk.green('Success !'))
+}
+
+export const objectDeleteSuccess = (originBucket: string, originKey: string) => {
+  console.log('\n');
+  console.log(chalk.green('Delte Operation!'));
+  console.log(chalk.green('Object →'));
+  console.log(chalk.green(`  Bucket: ${originBucket}`));
+  console.log(chalk.green(`  Key: ${originKey}`));
+  console.log(chalk.green('Success !'))
+}
+
+
+export const selectOrigin = () => {
+  console.log('\n');
+  console.log(chalk.blue(`select your operaion origin object`))
+  console.log('===========================================');
+  console.log('**               Origin                  **');
+  console.log('===========================================');
+}
+
+export const selectTarget = () => {
+  console.log('\n');
+  console.log(chalk.blue(`select your operaion origin object`))
+  console.log('===========================================');
+  console.log('**               Target                  **');
+  console.log('===========================================');
+}

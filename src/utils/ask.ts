@@ -4,7 +4,14 @@ import { Token, checkTokens } from './token';
 import { basePathWarning } from './renderer';
 import * as qiniu from 'qiniu';
 
-export const askObjectKey = async (bucket: string): Promise<{ key: string }> => {
+export const askInputObjectKey = async (): Promise<{ [key: string]: string }> => {
+  return inquirer.prompt({
+    name: 'key',
+    message: 'Enter your qiniu object key ?',
+  }) as Promise<{ [key: string]: string }>
+}
+
+export const askObjectKey = async (bucket: string): Promise<{ [key: string]: string }> => {
   inquirer.registerPrompt('autocomplete', autocomplete);
   const { ak, sk } = await checkTokens();
   const mac = new qiniu.auth.digest.Mac(ak, sk);
@@ -13,7 +20,7 @@ export const askObjectKey = async (bucket: string): Promise<{ key: string }> => 
   return inquirer.prompt({
     type: 'autocomplete',
     name: 'key',
-    message: 'select your qiniu object key ?',
+    message: 'Select your qiniu object key ?',
     source: (_: any, input: string) => {
       return new Promise((resolve) => {
         bucketManager.listPrefix(bucket, {

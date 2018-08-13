@@ -4,6 +4,7 @@ import upload from './scripts/upload';
 import * as buckets from './scripts/buckets';
 import * as hostnames from './scripts/hostnames';
 import * as object from './scripts/object';
+import * as login from './scripts/login';
 
 const packageJson = require('../package.json') as any;
 
@@ -44,10 +45,23 @@ const objects = program
   .action(function(operation) {
     switch(operation) {
       case 'stats':
-        object.stats();
+        return object.stats();
+      case 'move':
+        return object.move();
+      case 'copy':
+        return object.copy();
+      case 'delete':
+        return object.del();
       default:
-      objects.help();
+        objects.help();
     }
+  })
+
+program
+  .command('login')
+  .description('login qiniu (reset qiniu access token and secrect token)')
+  .action(() => {
+    login.reset();
   })
 
 const result = program.parse(process.argv);
