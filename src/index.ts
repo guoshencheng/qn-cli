@@ -53,7 +53,20 @@ const objects = program
       case 'delete':
         return object.del();
       default:
-        objects.help();
+        objects
+          .help(origin => {
+            const operatons = {
+              stats: 'Query object stats',
+              move: 'Move object from origin bucket and key to target bucket and key',
+              copy: 'Copy object from origin bucket and key to target bucket and key',
+              delete: 'Delete object with target and key',
+            } as { [k: string]: string };
+            origin += '\n  Operations:\n\n';
+            Object.keys(operatons).forEach((k: string) => {
+              origin += `    ${k}   ${operatons[k]} \n\n`
+            })
+            return origin;
+          })
     }
   })
 
