@@ -4,7 +4,7 @@ import { bucketList } from '../apis';
 import { askBuckets, askObjectKey } from '../utils/ask';
 import { objectStatsInfo } from '../utils/renderer';
 
-export const stat = async () => {
+export const stats = async () => {
   const { ak, sk } = await checkTokens();
   const mac = new qiniu.auth.digest.Mac(ak, sk);
   const qiniuConf = new qiniu.conf.Config();

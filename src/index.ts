@@ -38,14 +38,15 @@ program
     }
   })
 
-program
-  .command('objects')
-  .description('show all host map to your bucket, bucket is option')
-  .action((sub) => {
-    console.log(sub)
-    switch(sub) {
+const objects = program
+  .command('objects [operation]')
+  .description('qiniu storage object operations')
+  .action(function(operation) {
+    switch(operation) {
       case 'stats':
-        object.stat();
+        object.stats();
+      default:
+      objects.help();
     }
   })
 
