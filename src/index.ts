@@ -5,6 +5,7 @@ import * as buckets from './scripts/buckets';
 import * as hostnames from './scripts/hostnames';
 import * as object from './scripts/object';
 import * as login from './scripts/login';
+import { refresh } from './scripts/refresh';
 
 const packageJson = require('../package.json') as any;
 
@@ -37,6 +38,13 @@ program
     } else {
       hostnames.fetchHosts();
     }
+  })
+
+program
+  .command('refresh')
+  .description('qiniu storage cache refresh')
+  .action(() => {
+    refresh();
   })
 
 const objects = program
