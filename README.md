@@ -36,6 +36,13 @@ qn-cli buckets list # 列出所有的buckets
 qn-cli hosts [bucket] # 列出某个bucket中的所有映射域名 不输入bucket则会获取到所有的buckets然后选择
 ```
 
+##### `refresh`
+
+> 刷新资源cache
+
+```
+qn-cli refresh
+```
 ##### `objects`
 
 > 存储对象相关
