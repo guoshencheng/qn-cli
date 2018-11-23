@@ -15,10 +15,12 @@ program
   .command('upload [dirs...]')
   .description('upload files with glob string or file path')
   .option('-p, --prefix <prefix>', 'setting your upload files prefix')
+  .option('-f, --force', 'force to overwrite file')
   .action((dirs, options) => {
     upload({
       glob: dirs,
-      basePath: options.prefix
+      basePath: options.prefix,
+      force: options.force,
     })
   })
 program

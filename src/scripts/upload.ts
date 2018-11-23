@@ -89,11 +89,12 @@ export const checkFile = ({ basePath, key, mac, qiniuConf, bucket }: CheckFileOp
 }
 
 export interface QiniuUploaderOption {
+  force?: boolean,
   basePath?: string;
   glob: string | string[];
 }
 
-export default async ({ glob, basePath }: QiniuUploaderOption) => {
+export default async ({ glob, basePath, force }: QiniuUploaderOption) => {
   const buckets = await bucketList();
   const { bucket } = await askBuckets(buckets);
   const hostnames = await bucketHostNames(bucket);
@@ -122,7 +123,7 @@ export default async ({ glob, basePath }: QiniuUploaderOption) => {
       .pipe(through2.obj(async(file, _, next) => {
         let filePath = relative(file.base, file.path);
         filePath = filePath.split(sep).join('/');
-        const need = await checkFile({
+        const need = !!force || await checkFile({
           basePath: $basePath,
           key: filePath,
           mac,
