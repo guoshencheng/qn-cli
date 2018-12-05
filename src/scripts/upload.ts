@@ -1,5 +1,5 @@
 import { createReadStream } from 'fs';
-import { join, relative, sep } from 'path';
+import { join, relative, sep, isAbsolute } from 'path';
 import * as qiniu from 'qiniu';
 import * as gs from 'glob-stream';
 import * as through2 from 'through2';
@@ -88,6 +88,12 @@ export const checkFile = ({ basePath, key, mac, qiniuConf, bucket }: CheckFileOp
   });
 }
 
+function toAbsolute(filepath: string) {
+  if (isAbsolute(filepath)) {
+    return filepath;
+  }
+  return join(cwd, filepath)
+}
 export interface QiniuUploaderOption {
   force?: boolean,
   basePath?: string;
@@ -115,9 +121,9 @@ export default async ({ glob, basePath, force }: QiniuUploaderOption) => {
   const qiniuConf = new qiniu.conf.Config();
   return new Promise((resolve, reject) => {
     if (Array.isArray(glob)) {
-      glob = glob.map(i => join(cwd, i));
+      glob = glob.map(i => toAbsolute(i));
     } else {
-      glob = join(cwd, glob);
+      glob = toAbsolute(glob);
     }
     const stream = gs(glob)
       .pipe(through2.obj(async(file, _, next) => {
